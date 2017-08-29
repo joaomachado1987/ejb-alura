@@ -2,23 +2,17 @@ package br.com.caelum.livraria.dao;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import br.com.caelum.livraria.modelo.Autor;
 
-@Stateful
+@Stateless
 public class AutorDao {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-
-	@PostConstruct
-	public void aposCriacao() {
-		System.out.println("AutorDao foi Criado (callback)");
-	}
 	
 	public void salva(Autor autor) {
 		entityManager.persist(autor);
@@ -29,7 +23,7 @@ public class AutorDao {
 	}
 
 	public Autor buscaPelaId(Integer autorId) {
-		return entityManager.find(Autor.class, autorId);
+	    return this.entityManager.find(Autor.class, autorId);
 	}
 	
 }
