@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.service.AutorService;
+import br.com.caelum.service.LivrariaException;
 
 @Model
 public class AutorBean {
@@ -20,7 +21,7 @@ public class AutorBean {
 		return autor;
 	}
 	
-	public void cadastra() {
+	public void cadastra() throws LivrariaException {
 		this.autorService.salva(autor);
 		this.autor = new Autor();
 	}

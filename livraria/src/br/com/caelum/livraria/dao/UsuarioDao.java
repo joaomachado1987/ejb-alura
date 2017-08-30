@@ -19,11 +19,21 @@ public class UsuarioDao {
 	
 	@TransactionAttribute(TransactionAttributeType.REQUIRED)
 	public Usuario buscaPeloLogin(String login) {
-        // return this.banco.buscaPeloNome(login);
-
-        Usuario usuario = (Usuario) this.manager
-                .createQuery("select u from Usuario u where u.login=:pLogin")
-                .setParameter("pLogin", login).getSingleResult();
+		Usuario usuario = null;
+		
+		try {
+        	usuario = (Usuario) this.manager.createQuery("select u from Usuario u where u.login=:pLogin").setParameter("pLogin", login).getSingleResult();
+		}	
+        catch (Exception e) {
+        	if(usuario==null){
+            	usuario = new Usuario();
+            	usuario.setLogin("admin");
+            	usuario.setSenha("pass");
+         		this.manager.persist(usuario);
+            }
+		}
+        
+        
         return usuario;
     }
 	
